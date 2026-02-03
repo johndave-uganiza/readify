@@ -24,7 +24,7 @@ https://github.com/johndave-uganiza/readify.git
 
 2. **Navigate to project directory:**
 ```
-cd ~\Readify\Readify
+cd Readify
 ```
 
 3. **Configure SQL Server connection string in *appsettings.json*:**
