@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Readify.Models.Book>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Readify";
+}
+
+<div class="container w-75">
+    <!-- Page Header -->
+    <div class="row pt-2 align-items-center mt-2">
+        <div class="col-md-6">
+            <h2 class="text-primary">Books For Rent</h2>
+        </div>
+        <div class="col-md-6 text-md-end mt-2 mt-md-0">
+            <a asp-action="Rental" class="btn btn-info mb-2">
+                <i class="bi bi-book"></i> &nbsp; View Rentals
+            </a>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" id="bookSearch" class="form-control" placeholder="Search by Title, Author, or Subject..." />
+            </div>
+        </div>
+    </div>
+
+    <!-- List of Books for Rent -->
+        <div class="row g-2" id="booksContainer">
+            @foreach (var book in Model)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 book-card">
+                    <div class="card h-100 shadow-sm border p-1">
+                        <div class="card-body d-flex flex-column p-1">
+                            @await Html.PartialAsync("_BookImage", book.strImageUrl)
+                            <h4 class="card-title book-title mt-2">@book.strTitle</h4>
+                            <p class="card-text book-author"><strong>Author:</strong> @book.strAuthor</p>
+                            <p class="card-text book-subject"><strong>Subject:</strong> @book.Category?.strSubject</p>
+                            <p class="card-text"><strong>Price:</strong> @book.dclPrice.ToString("C", CultureInfo.GetCultureInfo("en-US"))</p>
+                            <div class="mt-auto d-grid">
+                                <a asp-action="Rent" asp-route-id="@book.intBookId" class="btn btn-success btn-sm">
+                                    Rent
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/BookSearch.js"></script>
+}

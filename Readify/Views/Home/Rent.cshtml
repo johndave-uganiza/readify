@@ -1,0 +1,98 @@
+﻿@model Readify.Models.Rental
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Rent";
+    var pricePerDay = Model.Book?.dclPrice ?? 0;
+}
+
+<partial name="_Notification" />
+<partial name="_PaymentConfirm" />
+<partial name="_PaymentSuccess" />
+
+<div class="container mt-5 d-flex justify-content-center" data-price-per-day="@pricePerDay">
+    <div class="card h-100 shadow-sm w-75">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <form asp-action="Rent" method="post" id="rentalForm" class="h-100 d-flex flex-column justify-content-between">
+                        @Html.AntiForgeryToken()
+                        <div>
+                            <h3 class="card-title mb-4">Rent - @Model.Book?.strTitle</h3>
+                            <input type="hidden" asp-for="intBookId" />
+                            <input type="hidden" asp-for="ysnPaid" id="ysnPaid" value="false" />
+                            <input type="hidden" asp-for="strPaymentMethod" id="strPaymentMethod" />
+                            <input type="hidden" asp-for="dclTotalPrice" id="dclTotalPrice" />
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label asp-for="dtmRentalDate" class="form-label">Rental Date</label>
+                                    <input asp-for="dtmRentalDate" class="form-control" type="date" id="rentalDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                    <span asp-validation-for="dtmRentalDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label asp-for="dtmReturnDate" class="form-label">Return Date</label>
+                                    <input asp-for="dtmReturnDate" class="form-control" type="date" id="returnDate" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
+                                    <span asp-validation-for="dtmReturnDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Payment Method</label>
+                                    <select class="form-select" id="paymentMethodSelect">
+                                        <option value="Online Payment (Test)" disabled selected>-- Select Payment Method --</option>
+                                        <option value="Credit Card (Test)">Credit Card (Test)</option>
+                                        <option value="Debit Card (Test)">Debit Card (Test)</option>
+                                        <option value="Online Payment (Test)">Online Payment (Test)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Price Per Day</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           readonly
+                                           value="@pricePerDay.ToString("C", CultureInfo.GetCultureInfo("en-US"))" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Total Price</label>
+                                    <p class="form-control fw-bold fs-5" id="dclTotalPriceDisplay">
+                                        @pricePerDay.ToString("C", CultureInfo.GetCultureInfo("en-US"))
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-success" id="payNowBtn">Pay Now</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 d-flex flex-column align-items-start">
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex flex-column gap-2">
+                            @await Html.PartialAsync("_BookImage", Model.Book?.strImageUrl)
+                            <details>
+                                <strong>Author:</strong>
+                                <p class="card-text">@Model.Book?.strAuthor</p>
+
+                                <strong>Subject:</strong>
+                                <p class="card-text">@Model.Book?.Category?.strSubject</p>
+
+                                
+                                <p class="card-text"><strong>Volume Number: </strong>@Model.Book?.Category?.intVolumeNumber</p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Rent.js"></script>
+}

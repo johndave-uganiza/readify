@@ -1,0 +1,33 @@
+﻿@model Readify.Models.Category
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+<div class="container w-50">
+    <form method="post" class="border p-3 mt-4">
+        @Html.AntiForgeryToken()
+        <h2 class="text-primary">Add New Category</h2>
+        <hr />
+        <div class="mb-3">
+            <label asp-for="strSubject"></label>
+            <input asp-for="strSubject" class="form-control" />
+            <span asp-validation-for="strSubject" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="intVolumeNumber"></label>
+            <input asp-for="intVolumeNumber" class="form-control" />
+            <span asp-validation-for="intVolumeNumber" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+        <a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:80px">
+            Cancel
+        </a>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -1,0 +1,55 @@
+﻿@model Readify.Models.Book
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Delete Book";
+}
+
+<partial name="_Notification" />
+
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="card shadow-sm w-50">
+        <div class="card-body">
+            <h2 class="card-title mb-4 text-danger">Delete Book</h2>
+            <hr />
+            <p class="mb-4">Are you sure you want to delete this book entitled <strong>@Model.strTitle</strong>? This action cannot be undone.</p>
+
+            <div class="row mb-4">
+                <!-- Book Image -->
+                <div class="col-md-4 text-center mb-3">
+                    @await Html.PartialAsync("_BookImage", Model.strImageUrl)
+                </div>
+                <!-- Book Details -->
+                <div class="col-md-8">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th style="width: 150px;">Title:</th>
+                            <td>@Model.strTitle</td>
+                        </tr>
+                        <tr>
+                            <th>Author:</th>
+                            <td>@Model.strAuthor</td>
+                        </tr>
+                        <tr>
+                            <th>Subject:</th>
+                            <td>@Model.Category?.strSubject</td>
+                        </tr>
+                        <tr>
+                            <th>Price:</th>
+                            <td class="fw-bold">@Model.dclPrice.ToString("C", CultureInfo.GetCultureInfo("en-US"))</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="intBookId" />
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

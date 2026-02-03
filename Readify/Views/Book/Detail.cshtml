@@ -1,0 +1,54 @@
+﻿@model Readify.Models.Book
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="card shadow-sm w-50 ">
+        <div class="row p-2">
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">@Model.strTitle</h3>
+
+                    <table class="table table-borderless mb-3">
+                        <tr>
+                            <th style="width: 150px;">Author:</th>
+                            <td>@Model.strAuthor</td>
+                        </tr>
+                        <tr>
+                            <th>Subject:</th>
+                            <td>@Model.Category?.strSubject</td>
+                        </tr>
+                        <tr>
+                            <th>Date Added:</th>
+                            <td>@Model.dtmCreatedDateTime.ToShortDateString()</td>
+                        </tr>
+                        <tr>
+                            <th>Price:</th>
+                            <td class="fw-bold">@Model.dclPrice.ToString("C", CultureInfo.GetCultureInfo("en-US"))</td>
+                        </tr>
+                    </table>
+
+                    <div class="d-flex gap-2">
+                        <a asp-action="Edit"
+                           asp-route-id="@Model.intBookId"
+                           class="btn btn-warning">
+                            Edit
+                        </a>
+
+                        <a asp-action="Index"
+                           class="btn btn-secondary">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                @await Html.PartialAsync("_BookImage", Model.strImageUrl)
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script type="text/javascript">
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "timeOut": 4000,
+        };
+    </script>
+
+    if (TempData["Success"] != null) {
+        <script type="text/javascript">
+            toastr.success('@TempData["Success"]');
+        </script>
+    } else if (TempData["Info"] != null) {
+        <script type="text/javascript">
+            toastr.info('@TempData["Info"]');
+        </script>
+    } else if (TempData["Warning"] != null) {
+        <script type="text/javascript">
+            toastr.warning('@TempData["Warning"]');
+        </script>
+    }
+    else if (TempData["Error"] != null) {
+        <script type="text/javascript">
+            toastr.error('@TempData["Error"]');
+        </script>
+    }
+
+    @if (TempData["PaymentSuccess"] != null)
+    {
+        @await Html.PartialAsync("_PaymentSuccess")
+
+        <script src="~/js/PaymentSuccess.js"></script>
+    }
+}

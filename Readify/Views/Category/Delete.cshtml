@@ -1,0 +1,34 @@
+﻿@model Readify.Models.Category
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+<partial name="_Notification" />
+
+<div class="container w-50">
+    <form method="post" class="border p-3 mt-4">
+        @Html.AntiForgeryToken()
+        <h2 class="text-danger">Delete Category</h2>
+        <hr />
+        <p class="mb-4">Are you sure you want to delete <strong>@Model.strSubject</strong> category? This action cannot be undone.</p>
+
+        <div class="mb-3">
+            <label asp-for="strSubject"></label>
+            <input asp-for="strSubject" class="form-control" disabled />
+        </div>
+        <div class="mb-3">
+            <label asp-for="intVolumeNumber"></label>
+            <input asp-for="intVolumeNumber" class="form-control" disabled />
+        </div>
+        <button type="submit" class="btn btn-danger" stype="width:150px">Delete</button>
+        <a asp-controller="Category" asp-action="Index" class="btn btn-secondary style="width:80px">
+            Cancel
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

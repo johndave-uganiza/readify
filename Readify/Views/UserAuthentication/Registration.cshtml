@@ -1,0 +1,50 @@
+﻿@{
+@model Readify.Models.Authentication.Registration
+    Layout = "_AuthenticationLayout";
+    ViewData["Title"] = "Registration";
+}
+
+<h3 class="text-center mb-4">Readify - Signup</h3>
+<form asp-controller="UserAuthentication" asp-action="Registration" method="post" novalidate>
+    <div class="mb-3">
+        <label asp-for="strName" class="form-label">Name</label>
+        <input asp-for="strName" class="form-control" />
+        <span asp-validation-for="strName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="strUsername" class="form-label">Username</label>
+        <input asp-for="strUsername" class="form-control" />
+        <span asp-validation-for="strUsername" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="strEmail" class="form-label">Email</label>
+        <input asp-for="strEmail" class="form-control" />
+        <span asp-validation-for="strEmail" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="strPassword" class="form-label">Password</label>
+        <input asp-for="strPassword" type="password" class="form-control" autocomplete="new-password" />
+        <span asp-validation-for="strPassword" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="strPasswordConfirm" class="form-label">Confirm Password</label>
+        <input asp-for="strPasswordConfirm" type="password" class="form-control" autocomplete="new-password" />
+        <span asp-validation-for="strPasswordConfirm" class="text-danger"></span>
+    </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-@TempData["Status"]">
+            @TempData["Message"]
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary w-100 mb-3">Signup</button>
+    <div class="text-center">
+        <a asp-action="Login">Already have an account? Login here.</a>
+    </div>
+</form>
