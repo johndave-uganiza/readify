@@ -73,5 +73,10 @@ dotnet run
 
 ---
 
+## Credits
+This project was developed as a learning exercise by following YouTube tutorials and implementing selected parts as references.
+- [Learn ASP.NET Core MVC (.NET 6) - Full Course](https://www.youtube.com/watch?v=hZ1DASYd9rk)
+- [Role based authorization in dot net 6+ (MVC) | Asp.net Identity](https://www.youtube.com/watch?v=KylxLlXsKjE&t=4606s)
+
 ## Thank You
 Thanks for checking out this project! ❤️
